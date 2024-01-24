@@ -5,7 +5,10 @@ using UnityEngine;
 public class RayShooter : MonoBehaviour
 {
     private Camera cam;
-    int size = 100;
+    private Vector3 lastHitPos;
+
+    public GUIStyle style;
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,9 +21,12 @@ public class RayShooter : MonoBehaviour
 
     void OnGUI()
     {
-        float posX = cam.pixelWidth / 2 - size / 4;
-        float posY = cam.pixelHeight / 2 - size / 2;
-        GUI.Label(new Rect(posX, posY, size, size), "*");
+        int size = 100;
+        float posX = cam.pixelWidth / 2;
+        float posY = cam.pixelHeight / 2;
+        GUI.Label(new Rect(10, 10, 2000, 2000), lastHitPos.ToString(), style);
+
+        GUI.Label(new Rect(posX, posY, 100, 100), "*", style);
     }
 
     // Update is called once per frame
@@ -43,6 +49,7 @@ public class RayShooter : MonoBehaviour
                 {
                     StartCoroutine(SphereIndicator(hit.point));
                 }
+                lastHitPos = hit.point;
             }
         }
     }
