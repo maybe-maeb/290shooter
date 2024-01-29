@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class ReactiveTarget : MonoBehaviour
 {
+
+    public void Start(){
+                GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+    }
+
     public void ReactToHit()
     {
+        WanderingAI behavior = GetComponent<WanderingAI>();
+        if (behavior != null)
+        {
+            behavior.SetAlive(false);
+        }
         StartCoroutine(Die());
     }
     private IEnumerator Die()
